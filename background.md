@@ -90,6 +90,7 @@ He started from a classroom chair: made in thousands to tens of thousands a year
 - **Prof — examples of cost vs price vs value:** a family car has **price close to cost** (huge pressure in automotive); a fast red sports car has price far above cost (value); **Italian eyewear** is cheap plastic to make but very expensive (perceived value; he lost his at a concert and "still cries").
 - **Class discussion — phone cover:** sells for €15–20, costs **tens of cents** to make (cheap elastomer + **mass production**). **Titanium hip implant:** small numbers, expensive alloy, complex geometry, per patient, so it might cost about €1000 to make but sells for tens of thousands, because of the **research and certification** (millions of euros of testing before a metal goes into a human body). Cost isn't only material: it's **volume, precision and know-how**.
 - **Prof:** top-down example: "a similar project cost €250k, this one will be about €275k." Bottom-up needs **a lot of data**. **Cost per kilogram** (like apples at the grocery) shows the value added: construction about $1/kg, packaging about $10/kg (cheap but very light), ships about $100/kg, luxury cars up to about $1000/kg, then appliances, sports gear, and at the top **aerospace and biomedical** (implants: tens of thousands per kg; even contact lenses are expensive per gram). A spacecraft must **work**, so performance comes first; a warehouse can always be made cheaper.
+- **Prof (4 Nov):** after the write-off time the machine is paid off but can keep running (a Fiat Ducato line in Italy is about 20 years old); "I won't ask these to you in an oral exam". On replacing workers with AI: somebody has to earn money to buy the products; Europe's issue is **reshoring**, bringing production back through automation because people don't want some jobs. AM avoids dedicated tooling (consumables are negligible by comparison).
 
 ## L2.1 CNC machine tools
 
@@ -103,3 +104,13 @@ He started from a classroom chair: made in thousands to tens of thousands a year
 - **Prof:** everything from the process theory is now **coded**: feed, spindle speed (from your power calculations), even the **tool** to use (T19).
 - **Prof — guideways:** classic sliding guides are **dovetails with lubricant**; modern **rolling guideways** reach about **5 m/s and 30 g**.
 - **Class discussion — pneumatic actuators?** Impulsive, imprecise, **hard to close the loop** (air is compressible), so not for machine-tool axes. Acceptable uses: the **die-casting plunger** (L1.2) and **pick-and-place**. Forging uses **hydraulics** (force). In battery manufacturing, **electromagnetic and vacuum** grippers are used for handling.
+- **Prof (27 Oct) — examples:** a company near Lecco makes satellite mirrors in clean, climate-controlled rooms (nanometric precision); the brass turned-part video; a 5-axis compressor impeller ("if you ask me how to program this I wouldn't know, but the essentials are the same"); a 6-axis laser tube cutter like the ones students see on the BLM visit. Interested students can take on tool-path challenges in the lab.
+
+## L2.2 Robotic manipulators
+
+- **Prof (27 Oct):** "this is another robotics lecture on its own"; the course looks at robots performing the transformation, not pick-and-place. ABB RAPID is used only as an example ("we're not sponsored"); in the lab you'll do similar things with the Dobot. Mobile robots ("the usual suspect is the dog robot") are becoming interesting, e.g. for repair.
+- **Prof (3 Nov):** the printed boat is by **Caracol**, an SME near Milan that also makes aerospace parts (6-DOF arm on a linear guide; "this thing actually sailed"). The horn-shaped laser-DED part and the wire-arc parts were made in his lab. How boats are usually made: fibreglass and resin laid in a mould, or bent and welded steel.
+
+## L3.1 Smart manufacturing
+
+- **Prof (4 Nov):** examples of AM parts that are hard to measure: a tooling insert with internal channels, a titanium lattice hip cup, Airbus brackets, a small turbine; **Camozzi**, an Italian company making large gantry AM machines; with colleagues in Germany his lab collected about 4 TB of process-camera data. The statistics part of the course follows (Prof. Grasso's module).

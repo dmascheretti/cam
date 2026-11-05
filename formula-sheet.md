@@ -106,3 +106,30 @@ Steel bar Ø100 × 300 mm, 3-jaw chuck + **tailstock**. Turn to Ø94 over 180 mm
 4. **Cutting speed for minimum cost:** from Taylor, v = C/Tⁿ = 250/21.6^0.122 ≈ **172 m/min**. That is lower than the 260 m/min used for roughing, consistent with v\_min < v\_max. (In class he stopped at the formula; the final number here is my calculation.)
 
 **Watch units:** put time in minutes (or seconds) everywhere: T\_t, C\_e/C\_r and Taylor's C.
+
+## K. Forming exercises (solved in class 3 Nov)
+
+1. **Flow stress:** K = 550 MPa, n = 0.22, final true strain ε = 0.85. Y\_f = Kεⁿ ≈ **530 MPa**; average Ȳ\_f = Kεⁿ/(1+n) ≈ **435 MPa**. (Strain hardening is given, so it's a cold process.)
+2. **From a tensile test:** K = 850 MPa, n = 0.30, gauge length 100 → 157 mm. ε = ln(157/100) = **0.451**; Y\_f ≈ **669 MPa**; Ȳ\_f ≈ **515 MPa**.
+3. **Find K and n from two points** (0.35, 217 MPa) and (0.68, 259 MPa): n = ln(σ₂/σ₁)/ln(ε₂/ε₁) ≈ **0.27**; K = σ₁/ε₁ⁿ ≈ **290 MPa** (K is the stress at ε = 1). **Prof:** with an automated tensile test you have many sampled points, so fit by **least squares on log–log axes**: slope = n, value at ε = 1 = K.
+4. **Blank size for a bend:** t = 5 mm cold-rolled steel, R = 8.5 mm, bend angle 140° (the part is bent to 40°). R/t = 1.7 < 2, so K\_ba = 0.33. A\_b = 2π(α/360)(R + K\_ba·t) ≈ **24.8 mm**. The straight legs are the drawing dimensions minus (R + t): (85 − 13.5) + (46.5 − 13.5) = 104.5 mm. Blank length ≈ **129.3 mm**. Why bother: the inside compresses and the outside stretches, so a blank cut to the developed outline would come out too long.
+5. **Fraction that doesn't yield in a bend:** t = 1 mm, bend radius 120 mm, Y′ = 210 MPa, E′ = 224 GPa. ε\_y = Y′/E′ ≈ 9.4·10⁻⁴; elastic core half-thickness z\_e = ε\_y·r ≈ **0.1125 mm**, so 2·0.1125 = 0.225 mm = **22.5% of the thickness stays elastic**. Thin sheet + large radius = a big elastic core = springback.
+6. **Tool radius to compensate springback:** t = 1.2 mm, Y′ = 300 MPa, E′ = 224 GPa, wanted final radius r′ = 250 mm. From 1/r − 1/r′ = 3Y′/(tE′): **r ≈ 136 mm** (no strain hardening, neutral axis at mid-plane). It comes from M\_p = wYt²/4 and the elastic recovery ΔM = (wE′t³/12)(1/r − 1/r′).
+
+## L. Cost: casting vs additive manufacturing (solved in class 3 Nov)
+
+Part 0.7 kg, material €50/kg. Casting: f = 0.40, C\_t = €8,000, Ṅ = 2.5 parts/h, C\_c = €100k. AM: f = 0.10, C\_t = €16,000 (consumables), Ṅ = 5 parts/h, C\_c = €500k. Both: C\_oh = €30/h, L = 0.3, t\_wo = 5 years, so hours = 24·365·5·0.3 = 13,140 h.
+
+- Casting: C = 0.7·50/0.6 + (100,000/13,140 + 30)/2.5 + 8,000/N ≈ **73.4 + 8,000/N** €
+- AM: C = 0.7·50/0.9 + (500,000/13,140 + 30)/5 + 16,000/N ≈ **52.5 + 16,000/N** €
+- Equal cost at **N ≈ 383 parts** (casting is cheaper below, AM above). Casting at N = 100: **≈ €153/part**.
+- If the material price rises, casting (40% scrap) suffers more, so the crossover moves to **fewer parts**.
+
+## M. Cost: minimum production rate to keep the profit (solved in class 4 Nov)
+
+Prosthesis 0.9 kg, stamping with f = 0.30, sold at €250 with €30 profit, so C ≤ **€220**. Material €100/kg in 2026, **+20%** (tariffs) in 2027 → €120/kg. C\_t = €5,000, N = 10,000, C\_oh = €100/h (one person), L = 0.3, t\_wo = 5 years, C\_c = €1.8M, so hours = 24·365·5·0.3 = 13,140 h.
+
+1. Material 0.9·120/0.7 = €154.3; tooling 5,000/10,000 = €0.5; the rest must stay ≤ 220 − 154.8 = €65.2 = (1.8M/13,140 + 100)/Ṅ = 237/Ṅ, so **Ṅ ≥ 3.63 → at least 4 parts/h** (with the 2026 price, 2.6 parts/h was enough).
+2. Two operators: L = 0.6 but C\_oh = €200/h, so (68.5 + 200)/Ṅ ≤ 65.2 → **Ṅ ≥ 4.1 parts/h**: you must produce faster, so it's a **disadvantage** under these assumptions.
+
+Note the inequality direction: the cost must stay **below** €220, so the rate comes out as a **minimum**.

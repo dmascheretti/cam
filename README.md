@@ -44,6 +44,8 @@ The 30 cum laude comes from the oral (60%), and the oral rewards **linking topic
 
 **Exam alert — cum laude:** "You cannot get cum laude if you haven't done the project." The CAM Shop assignment is elective, but without it 30L is impossible.
 
+**Exam alert (3 Nov) — written-exam rules:** a **formula sheet is provided**; you work on your own computer, but **no notes and no AI**, so practise with a calculator (Excel is allowed, "but we shouldn't see weird windows pop up on your screens").
+
 Other things he said: attending only theory and lab is "not really good", since the oral covers everything. Five exam calls a year (2 winter, 2 summer, 1 September). Use your university e-mail, and ask for office appointments well before the exam, not on the Sunday before.
 
 **What to study:** each chapter (L0.0 to L3.1) is the exam material: the slide content plus only the professor's comments that matter for the exam (marked **Prof**, **Class discussion** or **Exam alert**). The rest of what he said in class (stories, videos, lab demos, history) is in **Background from the lectures**, the last section at the end of the guide. Read it once and don't memorise it.

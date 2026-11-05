@@ -14,6 +14,8 @@ The 30 cum laude comes from the oral (60%), and the oral rewards **linking topic
 
 **Exam alert — cum laude:** "You cannot get cum laude if you haven't done the project." The CAM Shop assignment is elective, but without it 30L is impossible.
 
+**Exam alert (3 Nov) — written-exam rules:** a **formula sheet is provided**; you work on your own computer, but **no notes and no AI**, so practise with a calculator (Excel is allowed, "but we shouldn't see weird windows pop up on your screens").
+
 Other things he said: attending only theory and lab is "not really good", since the oral covers everything. Five exam calls a year (2 winter, 2 summer, 1 September). Use your university e-mail, and ask for office appointments well before the exam, not on the Sunday before.
 
 **What to study:** each chapter (L0.0 to L3.1) is the exam material: the slide content plus only the professor's comments that matter for the exam (marked **Prof**, **Class discussion** or **Exam alert**). The rest of what he said in class (stories, videos, lab demos, history) is in **Background from the lectures**, the last section at the end of the guide. Read it once and don't memorise it.
@@ -1016,6 +1018,8 @@ b = width, h = thickness, L = die opening/span. **Exam alert:** a model that fit
 | Pros | Accuracy, tolerances, surface finish, strength from hardening, grain flow, no heating | Large deformation, low forces |
 | Cons | High forces/power, clean surfaces needed, limited deformation, may need annealing | Lower accuracy, heating energy, oxidation, shorter tool life |
 
+**Exam alert (3 Nov) — is it hot or cold?** Read it from the data: if K and n (strain hardening) are given, it is a **cold** process. Hot working is above a fraction of the melting point (this time he said about **0.7·T\_m**: steel ≈ 1050 °C, Al ≈ 500 °C; earlier 0.5·T\_m): lower E, lower yield, **no strain hardening**, so a hot tube is easier to bend, but also easier to break. "Hot and cold does not respond to human beings": it depends on the material. You need the **average** flow stress when the strain varies through the deformation zone (e.g. rolling: zero strain at entry, full strain at exit). Worked numbers: formula sheet, K.
+
 - **Prof — "hot" is relative to the material:** hot working means T > 0.5·T\_m: for Al (T\_m ≈ 600 °C) about **300 °C**; for steel (about 1500 °C) about **750 °C**. Hot: lower yield, **no strain hardening** (elastic–perfectly plastic plateau), lower E. Heat gives defects energy to **slide past each other**. But heating **costs energy too**, and causes oxidation. Cold: more **precise**, since there's no uneven heat exchange changing properties point to point.
 - **Prof — strain rate:** deform faster and it gets **harder** (flow stress rises with ε̇, on log axes). How do you change ε̇? Through **process speed**: punch, rolls, extrusion ram. With rising temperature the constant C falls but the material becomes **more sensitive to strain rate** (m rises).
 - **Prof — the procedure for any forming force:** know the deformation the process requires → is it hot or cold? → read the strength from the flow curve (Hooke / Hollomon, temperature, rate) → **force = stress × area**.
@@ -1256,6 +1260,9 @@ m C\_m/(1−f) = material with scrap; C\_t = dedicated tooling written off over 
 - **Prof — term by term:** **scrap fraction f**: you need more than 1 kg to make a 1 kg part (sprues and gates in casting, chips in machining, trims in forming). **Tooling**: the press-brake punch and die are tooling, the press brake is capital; spread over the **planned quantity N**. **Capital write-off time**: "in 5 years the machine has to **pay itself off**" (about 5 years for machine tools, because new technology arrives). **Load factor L**: you can't produce 365 days × 24 h, so it counts shifts, working days and **changeover speed**. Energy and information (R&D, patents) are folded into the overhead rate.
 - **Exam alert — read the formula to reduce cost:** reduce **scrap**, **produce more** (N), **load the machine** (L), **produce faster** (Ṅ). "All the things we know intuitively come down to a mathematical calculation."
 
+* **Class discussion (4 Nov) — how can automation lower the unit cost? Read the model term by term:** **material/scrap** (precise, automated processes make fewer defects, so f falls; "nobody speaks about this", yet it doesn't depend on volume); **tooling** (monitor tool wear; flexible, non-dedicated tools plus more automation, e.g. robot bending with a generic tool); **overhead** (fewer people, but more energy, maintenance, software licences and know-how: "it's not a simple game"); **capital/rate** (automated handling cuts idle time and raises Ṅ, at a higher C\_c). Much equipment is under-used because of missing knowledge or poor choices, so productivity can often rise without new investment. The model is for **interpretation**, not a final price, and the numbers shift every day.
+* **Prof — more load factor isn't automatically better:** in exercise M, a second operator doubles L but also the overhead, and the break-even production rate goes **up** (from ≥ 3.6 to ≥ 4.1 parts/h).
+
 ### Worked example (slide): sand casting vs die casting
 
 Normalised to material cost, f = 0, L = 1, t\_wo = 5 years = 5 · 365 · 24 = 43,800 h.
@@ -1335,7 +1342,7 @@ v\_min < v\_max because the cost optimum also pays for tool edges. **Exam alert:
 
 ## L2.1 CNC machine tools
 
-A CNC machine is a **positioning system** (motor → rotary-to-linear conversion → axis, with position/velocity sensors closing the loop) driven by a **part program** in ISO G-code. CAM generates the tool path, and a **post-processor** turns it into the code for a specific machine. This is the basis of the **CAM software question** in the written test and the CAM Lab. *(Slides + recordings of 19 Oct (architecture, axes, interpolation), 20 Oct (G-code programming) and 26 Oct (CAD/CAM, tool paths, machine components). Professor's comments inline.)*
+A CNC machine is a **positioning system** (motor → rotary-to-linear conversion → axis, with position/velocity sensors closing the loop) driven by a **part program** in ISO G-code. CAM generates the tool path, and a **post-processor** turns it into the code for a specific machine. This is the basis of the **CAM software question** in the written test and the CAM Lab. *(Slides + recordings of 19 Oct (architecture, axes, interpolation), 20 Oct (G-code programming), 26 Oct (CAD/CAM, tool paths, machine components) and 27 Oct (structure, turning and machining centres). Professor's comments inline.)*
 
 ### History and definitions
 
@@ -1522,11 +1529,21 @@ Tool-path strategies for free-form surfaces: **Z-level curves, constant-paramete
 * **Exam alert — accuracy vs repeatability:** a machine can be **very repeatable but wrong** (e.g. calibration off: it always lands in the same wrong place). High accuracy **and** repeatability require the right **motor + transmission + position readout** together — be ready to explain which component limits which.
 * &#91;image: Accuracy, repeatability and resolution on a target (L2.1 slide 80)\]
 * **Structure:** stiffness, damping, thermal distortion, assembly, foundations; bed in **cast iron** (damping) or **welded steel**.
+* **Prof (27 Oct) — avoid errors before compensating them:** positioning errors propagate along the chain motor → transmission → screw → guideways, and "it is better to avoid" than to measure and compensate. Machining loads are **cyclic** (milling), so vibrations add positioning and geometric errors. Higher **stiffness** raises the natural frequency, higher **mass** lowers it: keep the structure's natural frequencies away from the process frequency and **damp passively** (material damping). **Thermal distortion** is a very low-frequency error: the scales move with the expansion, so you read the right position but are off.
+* **Class discussion — how do you make a machine rigid if you can't just add weight?** Material (heavy **cast iron**: spheroidal/nodular graphite damps vibration; **polymer concrete** is an option, carbon-fibre composites are not), then **geometry** (ribs, symmetric shapes so expansions cancel), then the environment (**climate-controlled room** for the highest precision). Welded steel beds are lighter but need geometric stiffening.
+* **Prof — assembly and the last resort:** bolting can rotate, displace or deform parts; welding distorts (local heating and cooling); gluing only for low forces. Precision costs money; past a saturation point you **characterise the machine's errors and correct them in real time with a lookup table**.
 
 ### Machine classes
 
 - **Single-purpose** NC machines (one process) vs **multi-purpose**: **turning centre** (loader/unloader manipulator, one or two turrets used at once, **driven tools** for drilling, tapping and milling) and **machining centre** (tool storage → tool changer → spindle).
+- **Prof — turret = short, indexed tool change:** tools are mounted and referenced on the turret **offline**, so a change takes seconds and the machine knows where each tool is (by hand: minutes, then re-referencing). **Two turrets** = two more axes (Z, X each): shorter machining time, higher cost. A **robot for loading/unloading** cuts preparation time but raises capital cost, so there is a break-even quantity between more and less automated set-ups (L1.9).
+- **Prof — driven tools (C1, C2):** C1 = the spindle stops and **positions** the workpiece, C2 = rotation of the driven tool. So you can mill, drill and tap on a turning centre, e.g. the **keyway pocket on a shaft** without moving it to a milling machine. In his video (brass part): facing, grooving, external turning, pre-drill + drilling, milling a pocket with the spindle interpolated with the 3-axis driven tool, tapping, cut-off.
+- **Prof — machining centre:** a powerful spindle (MRR), **tool storage + tool-change arm** (a magazine can be loaded while cutting), **pallets** (load the next part while machining). Unlike the turret, the tool must be swapped into the spindle. 5-axis = X, Y, Z + A, B; with a C-axis it can even turn. Programming = plan the order of operations, set them up, keep checking **collisions**.
+- **Exam alert — "how would you program a 5-axis machine?":** you won't be asked to program one (the course stops at **3-axis milling**). Know the basis: machining **planning** (order of operations), the CAM strategies, and how to compare them (e.g. spiral vs 2.5D: time, precision).
 - **Touch probes** in machining centres: find the workpiece X–Y position and surface height, the cutter diameter (radius compensation) and the tool length (length offset). This is **in-cycle measurement** (L1.6), used for GAC.
+- **Prof — probing, and how to avoid it:** the code assumes the part is at a given position; probing finds the real offsets, which the NC applies. Probing takes time; optical sensors are faster but struggle with oil and chips. Better to **avoid** the need: **fixtures** (and pallets) guarantee the position. Probe anyway for very precise parts. A probe senses a contact force and reads the axis position.
+- **Class discussion — why is the coolant always on when drilling?** The chip has nowhere to go but **up** the hole; it rubs and heats. Coolant cools and helps break and evacuate the chip (very deep holes risk breaking the drill).
+- **Prof — low-force processes on Cartesian machines:** without cutting forces you exploit **precision + speed**, e.g. **laser cutting**: Z sets the **focal point**, the kerf is a "virtual tool" to compensate, and a 6-axis tube cutter measures the rolled stock first and inclines the head to cut mating edges. Laser safety: the door stays locked while the beam can be on.
 
 &#91;image: Machining centre: tool storage, tool changer, spindle, pallets (L2.1 slide 89)\]
 
@@ -1534,13 +1551,17 @@ Tool-path strategies for free-form surfaces: **Z-level curves, constant-paramete
 
 ## L2.2 Robotic manipulators for manufacturing
 
-Robots trade **accuracy and stiffness** for **workspace, flexibility and cost**. Programming them is harder than programming a CNC: the same tool pose has **multiple joint solutions** (inverse kinematics), plus **singularities** and joint limits. So robots suit welding, polishing, cutting, AM and soft-material machining, while 5-axis CNC stays the choice for stiff, precise metal cutting. *(From the slides.)*
+Robots trade **accuracy and stiffness** for **workspace, flexibility and cost**. Programming them is harder than programming a CNC: the same tool pose has **multiple joint solutions** (inverse kinematics), plus **singularities** and joint limits. So robots suit welding, polishing, cutting, AM and soft-material machining, while 5-axis CNC stays the choice for stiff, precise metal cutting. *(Slides + recording of 27 Oct (intro, robot types, frames, inverse kinematics) and 3 Nov (recap, robotic additive manufacturing). The 28 Oct recording has no audio, so programming methods and the other applications are from the slides. Professor's comments inline.)*
 
 ### Definitions (ISO 8373:2012)
 
 - **Robot:** actuated mechanism programmable in ≥ 2 axes, with some autonomy, moving within its environment to perform tasks.
 - **Industrial robot:** automatically controlled, **reprogrammable, multipurpose manipulator**, programmable in **≥ 3 axes**, fixed or mobile.
 - **Manipulator:** segments jointed or sliding relative to each other, to grasp or move parts or tools. **Mobile robot:** travels under its own control (platform with or without a manipulator).
+
+* **Prof (27 Oct) — why robots in this course:** CNC and CAM are standardised and target productivity; robots make processes feasible thanks to their **geometric freedom**, less standardised but more flexible for new processes. Compare robots and CNC on **accuracy, stiffness, flexibility, accessibility and cost**: some are worse, some better.
+* **Class discussion — what are CNC machines good at?** **Precise**, **rigid** (Cartesian/gantry, few motors on rigid guideways), therefore **fast** and deflecting less, and programmed in a **standardised language** (ISO). Robot CAM is **controller-specific** (each manufacturer has its own).
+* **Prof — example, robotic incremental forming vs deep drawing:** deep drawing needs a press (say €500k) and a die (say €50k), so 1 part costs at least €550k and 5 parts €110k each. A robot pressing locally with a small tool on a **fixture** removes press and die: low capital, but the difficulty moves to **programming and process knowledge** (enough force? local stress = F/A). Worth it for 1–10 parts (L1.9 cost model).
 
 &#91;image: Definition of an industrial robot: manipulator + controller, programmable in 3 or more axes (L2.2 slide 5)\]
 
@@ -1558,6 +1579,9 @@ Robots trade **accuracy and stiffness** for **workspace, flexibility and cost**.
 
 P = prismatic, R = revolute. DOF are limited by joint ranges (e.g. ±180°, 0–700 mm), which shape the **working envelope**. **External axes** (linear tracks, 2-DOF positioners) enlarge it or improve access.
 
+- **Prof — workspace shapes:** Cartesian → prismatic volume, cylindrical → cylinder, spherical → sphere, SCARA → complex shape. The **gantry** is the most rigid (built between columns); the **articulated arm** grows around a single column, a compromise between rigidity and flexibility. Closed chains: one actuator's motion is limited by the others.
+- **Prof — joint limits and envelope:** joints may not rotate fully (e.g. ±180°) because of collisions or actuation; linear axes have stroke limits (e.g. 700 mm). Mounting the robot on an **external linear axis** adds a DOF and enlarges the envelope. A 4-DOF robot cannot reach every orientation.
+
 &#91;image: Degrees of freedom and working envelope of a 6-axis articulated arm (L2.2 slide 7)\]
 
 ### Frames and targets (ABB RAPID as the example)
@@ -1567,6 +1591,10 @@ P = prismatic, R = revolute. DOF are limited by joint ranges (e.g. ±180°, 0–
 - **TCP** = Tool Centre Point (torch tip, cutter tip, forming-tool contact point).
 - **RobTarget** = \[\[pose\], \[confdata\], \[ext axes\]\]: TCP position + orientation + **configuration** (cf1, cf4, cf6, cfx, which select the joint solution) + external axes. **JointTarget** = the joint angles directly.
 - **Inverse kinematics:** from the tool pose find q1…q6. It is often hard to solve analytically; there can be **multiple** solutions, **infinite** ones (redundancy), or **none** admissible (joint limits, reach).
+
+* **Exam alert — why robot programming is different from CNC:** on a CNC one motor moves one axis in one direction. On a 6-DOF arm X, Y, Z still exist but **are not the axes**, so reaching a point needs **all joints together**. You move the **tool**, not a joint, hence frames: the **base frame** (useless for the process), the **tool frame / TCP** (position + orientation), and the **work object** (everything referred to the workpiece). Pose = X, Y, Z + **quaternion** (4 numbers with unit norm, so 3 are free).
+* **Class discussion — why specify the configuration as well (confdata)?** The same TCP pose can be reached with different arm configurations, and the choice matters for **collisions**, **stability** (centre of mass near or far from the base under process forces), **speed**, and avoiding **singularities** (aligned joints) and jerky motion. External axes (tilt-rotate positioner) add DOF and need their own frame.
+* **Prof — inverse kinematics from the manufacturing side:** from the target pose to the joint variables. It is hard to solve analytically and can have **multiple, infinite (redundancy) or no** solutions, so you fill the choice with manufacturing knowledge: accessibility, process forces, collision avoidance. That's why robot programming relies more on experience and simulation and is less standardised than NC programming.
 
 &#91;image: Frames of a 6-DOF arm: base frame, tool0, tool frame, wobj0 (L2.2 slide 8)\]
 
@@ -1643,19 +1671,27 @@ Robot machining is "unconventional because of low rigidity"; 5-axis CNC is often
 - **Polishing, laser cutting, bending, incremental forming** (the L0.0 Machina Labs video).
 - **Additive:** **WAAM** (ABB IRB 2600 + 2-DOF positioner + Fronius TPS 400i: Tornaquindici's research), laser metal deposition (8-axis), extrusion AM.
 
+* **Prof (3 Nov) — the robot vs CNC summary:** robots give **flexibility** and are cheaper to buy, but lose **positioning precision and rigidity**, and are harder to program, so operating costs can be higher (skilled operators, engineers). They are complementary: machining (high forces) → CNC, or a robot with error compensation, low-force tool paths, or moving the part instead of the tool; welding (no process force, positioning matters) → robots widely used; forming → robot incremental forming removes the tooling but is slow and hard to program.
+* **Prof — robotic additive manufacturing:** **wire-arc AM** = a MIG-like torch on a 6-DOF robot + 2-DOF tilt-rotate table, depositing tracks layer by layer (heat input must be regulated or the part warps). **Directed energy deposition** with laser + powder: the deposition plane can keep changing axis, e.g. a horn-shaped part built with a helical path on a curved centreline while the table keeps the laser roughly perpendicular to the surface. "The automation capabilities translate into your design capabilities."
+* **Prof — large-scale polymer printing:** a whole boat printed in one piece in about 160 h, with **no mould or dedicated tooling** (good for one-off, customised products). It builds at about **45°**, a choice set by both programming and the material's strength. "Sky is the limit" for adding robots or axes, "but nothing works if you do not have a clear idea about the process" (the extrusion is thermal and must be modelled to be controlled).
+
 &#91;image: Robotic spot welding in automotive body lines (L2.2 slide 36)\]
 
 **Exam link:** robots are **programmable/flexible automation** (L1.1). Their low stiffness is a **process-force** problem (L1.5/L1.6 force models). Their positioning error needs sensing and calibration (seam tracking, L1.4).
 
 ## L3.1 Smart manufacturing – introduction
 
-Every process is a transformation hit by **disturbances**, so quality characteristics are **random variables**. Statistical process monitoring asks two questions: is the process **stable** (in statistical control → control charts) and is it **capable** of meeting specifications (→ capability analysis)? New products and processes make classic product-based SPC too slow, which drives a shift to **in-process monitoring of sensor data**. This intro leads into the written test's **quality-monitoring numerical exercise**. *(From the slides, Prof. Grasso.)*
+Every process is a transformation hit by **disturbances**, so quality characteristics are **random variables**. Statistical process monitoring asks two questions: is the process **stable** (in statistical control → control charts) and is it **capable** of meeting specifications (→ capability analysis)? New products and processes make classic product-based SPC too slow, which drives a shift to **in-process monitoring of sensor data**. This intro leads into the written test's **quality-monitoring numerical exercise**. *(Slides by Prof. Grasso + recording of 4 Nov, Prof. Demir's introduction. Professor's comments inline.)*
 
 ### Disturbances and variability
 
 - A transformation takes material, energy and information in, and puts parts, scrap/waste, heat and information out. Disturbances can be **technological, management, material, energy, information, resources** (machines, tools, fixtures).
 - "All real-world processes are affected by uncontrollable phenomena (disturbances) that influence the final outcome." Variability in the initial state plus variability of the process gives variability of the result, which must fall within the **tolerance interval**. This is Shewhart from L0.0, now formalised.
 - **Quality characteristics are random variables.** Continuous examples: hardness, UTS (material); forged height, rolled thickness (forming); wall thickness, hole diameter, density (casting); turned diameter, roundness, milled flatness (machining). Discrete examples: number of scratches, number of nonconforming parts in a sample.
+
+* **Prof (4 Nov) — a disturbance on every input:** material (sheet thickness varies), energy (supply fluctuations change spindle speed; a melt meant to be at 700 °C arrives at 650 °C), information (wrong data, the wrong material delivered: "much more common than you think"), resources (wear or defects of tools, machines, fixtures), and the process itself (someone changes the parameters).
+* **Prof — disturbances differ in nature:** some **shouldn't happen** (an unauthorised parameter change), some **can be modelled** (tool wear: Taylor), some are **hard to control** (factory temperature, 35 °C in summer vs 0 °C in winter). The information coming out of the process is what lets you learn and correct the inputs.
+* **Prof — the shaft example:** the incoming bar diameter varies, and the process adds its own variability (vibration, wear), so the turned diameter is a **random variable** that must stay inside the tolerance band.
 
 &#91;image: Every transformation is subject to disturbances: material, energy, information, resources in; product and scrap out (L3.1 slide 2)\]
 
@@ -1665,6 +1701,8 @@ Every process is a transformation hit by **disturbances**, so quality characteri
 
 - **Quality of design (specifications):** what the producer intends to offer, from customer requirements and fitness for use. Specifications = **target** (ideal value) + **tolerances** (acceptable deviations, because material, machine, people and process vary). Example: turned pin with diameter D and length L.
 - **Natural statistical tolerance interval (ISO 16269-6):** an interval from a random sample that, with a given confidence, contains a given proportion of the population. It is what the process actually produces.
+
+* **Prof — continuous vs discrete characteristics:** continuous = measured on a continuous scale (hardness, strength, forged height, wall thickness, turned diameter, roundness, flatness); discrete = counts (scratches on a surface, non-conforming parts in a sample), where a normal distribution may not fit. For the pin, diameter and length together define a rectangle of acceptability: each produced part is a dot, and a dot outside is non-conforming.
 
 &#91;image: Quality of design: target values and tolerances on the quality characteristics (L3.1 slide 5)\]
 
@@ -1679,7 +1717,11 @@ Every process is a transformation hit by **disturbances**, so quality characteri
 
 The adequate case holds only if the process is **stable**, in steady state with no drifts or malfunctions. **First problem:** is the process stable (in statistical control)? Use **SPC/SPM control charts**. **Second problem:** is it capable of meeting the specs? Use **capability analysis**.
 
+- **Class discussion — reading the four cases:** natural tolerance much tighter than the specs = **too precise, too costly** (you are stressing the system, e.g. an expensive extra support where a tailstock would do); too wide = **too imprecise**, a wrong process set-up (e.g. a three-jaw chuck that isn't rigid enough); the right width but offset = **wrong machine settings**. A **statistical tolerance interval** contains a stated proportion of the population (e.g. 99%) with a stated confidence.
+
 **Drift example:** tool wear or a degraded machine moves the natural tolerance over time (t₁ → t₂ → t₃). The result is an **out-of-control** process: the fraction of nonconforming units changes, and you cannot predict the future state. You need a tool that detects out-of-control conditions **as early as possible**.
+
+**Prof — "as early as possible" depends on volume:** finding one defective part and stopping is early if you make millions; if you make one part (or one batch), it's too late. Then "early" means **during the process**.
 
 &#91;image: Natural process tolerance drifting over time: an out-of-control process (L3.1 slide 8)\]
 
@@ -1688,6 +1730,10 @@ The adequate case holds only if the process is **stable**, in steady state with 
 - Classic SPC looks at the **output** (product quality characteristics) to judge process stability.
 - **Phase I (design):** use in-control (IC) samples to estimate the control limits. **Phase II (use):** check new production samples; a point outside the limits signals **out-of-control (OOC)**, meaning an **assignable cause** to investigate.
 - **Statistical control vs engineering control:** SPC **detects** that something changed (an assignable cause) and leaves the diagnosis to the engineer. Engineering (feedback) control continuously **adjusts** an input to hold an output on target (the PI/MPC loops in L1.2, L1.4, L1.8). They are complementary.
+
+* **Prof — the two phases:** first measure **in-control samples** (parts known to be good) to find the size of the natural variability and build the control chart; then, in production, check whether new points fall inside or outside the limits.
+* **Prof — the sampling plan is like signal sampling:** decide **how often, how many and where** to sample. Measuring every part tells you each part's state but costs time and money (a bottleneck); every 10th or 100th part is cheaper but slower to detect. After an alarm: random variation (false alarm, carry on) or a real cause → investigate and improve.
+* **Exam alert — engineering control vs statistical control:** engineering (automatic) control **acts** on the process in real time to follow a target (controller → process → measurement → correction, e.g. a welding robot tracking its path). Statistical control **assesses** the process from samples, batches, shifts or days to detect non-random variation: "is the process stable, did something unusual happen?" **You need both**: a robot can track its path perfectly while an oil spot on one part makes that weld burst, so the process left statistical control for that part.
 
 &#91;image: How SPC/SPM works: process → measurement → control chart → alarm → investigate → improve (L3.1 slide 10)\]
 
@@ -1701,6 +1747,10 @@ The adequate case holds only if the process is **stable**, in steady state with 
 4. **Expensive quality assurance:** a large extrusion-AM composite part (> 1 week) where final inspection is extremely costly or barely feasible.
 5. **No time to learn:** one-off or fully customised parts (ESA spacecraft bracket, custom prostheses) give no in-control samples for Phase I.
 
+- **Prof — the data get more complex:** one number per part (diameter) → P characteristics (diameter + length) → a **profile** (roundness as a function) → a **surface** (3D scan) → a **volume** (CT). AM parts (lattice hip cup, aerospace brackets, internal channels, **part consolidation**, e.g. 20 parts fused into one) have no single diameter to chart. This is a source of big data.
+- **Class discussion — the titanium landing-gear bracket:** milled from a solid block (welds would be weak points), about **20 h** per part. If you only inspect at the end, a fault at hour 5 wastes the block and 20 h. Faster options: measure the surface during the process (still intermittent), use models to set the process (reliable, but they don't see disturbances), or **monitor in-process signals** such as **vibrations**. That's where the course is going.
+- **Prof — no time to learn:** for a high-value AM part the cost is roughly 40% process, 30% post-processing, 30% **qualification**, so inspection costs as much as making it. One-off parts (a custom prosthesis; the ESA spacecraft bracket, made twice: one flies, one is tested) leave no samples to build a control chart from.
+
 &#91;image: New challenges: product complexity, from one quality characteristic to whole surfaces and shapes (L3.1 slide 12)\]
 
 **New opportunities:** heavily sensorised machines, in-line big data, IoT, high computing power, ML/AI, cyber-physical systems and **digital twins**.
@@ -1713,6 +1763,8 @@ The adequate case holds only if the process is **stable**, in steady state with 
 | Latency | Hours or days | **Seconds** |
 | Evolution | — | Simple → complex data (images, point clouds, voxels, multimodal); normal → massive; slow → fast; single → multiple streams |
 
+- **Prof — sensors give data in seconds:** the part may take hours or days, the sensors answer in seconds, so you can learn the in-control behaviour and spot drifts with fewer parts. Some signals are already inside the machine: **spindle power or current** on a milling machine. Examples: the cutting force in titanium milling suddenly dropping after a certain part (a signalling event), drilling signals, water-jet pressure, AM process emissions, camera inspection of every bottle in a fraction of a second, 3D scan vs CAD **error maps**, X-ray CT for internal voids, high-speed and thermal cameras (hundreds of frames per second, terabytes of data).
+
 &#91;image: Paradigm shift: from product monitoring to in-process signal monitoring (L3.1 slide 19)\]
 
 Examples: cutting forces in titanium milling, thrust force in drilling hybrid materials, pressure in waterjet cutting, high-speed and IR video in metal AM (300–500 fps), 3D point clouds with deviation maps from optical scanning, glass-bottle inspection.
@@ -1721,6 +1773,8 @@ Examples: cutting forces in titanium milling, thrust force in drilling hybrid ma
 
 - **ISO/IEC:** "Manufacturing that improves its performance aspects with integrated and intelligent use of processes and resources in cyber, physical and human spheres to create and deliver products and services, which also collaborates with other domains within enterprises' value chains."
 - **Simpler:** the use of **sensing, connectivity, data and intelligent decision-making** to **monitor, predict and adapt** manufacturing processes in real time. A smart system uses data from the physical process to learn its state and to support or autonomously make better decisions.
+
+**Prof — in short:** use all the data you have, from before, during and after the process, to improve and keep quality and use resources better. The data are big, so their analysis has to be automated too (AI and machine learning). Industry expects quality control to be one of the biggest challenges of the next years.
 
 &#91;image: Smart manufacturing definitions: sensing, connectivity, data-driven decisions (L3.1 slide 24)\]
 
@@ -1859,6 +1913,33 @@ Steel bar Ø100 × 300 mm, 3-jaw chuck + **tailstock**. Turn to Ø94 over 180 mm
 
 **Watch units:** put time in minutes (or seconds) everywhere: T\_t, C\_e/C\_r and Taylor's C.
 
+### K. Forming exercises (solved in class 3 Nov)
+
+1. **Flow stress:** K = 550 MPa, n = 0.22, final true strain ε = 0.85. Y\_f = Kεⁿ ≈ **530 MPa**; average Ȳ\_f = Kεⁿ/(1+n) ≈ **435 MPa**. (Strain hardening is given, so it's a cold process.)
+2. **From a tensile test:** K = 850 MPa, n = 0.30, gauge length 100 → 157 mm. ε = ln(157/100) = **0.451**; Y\_f ≈ **669 MPa**; Ȳ\_f ≈ **515 MPa**.
+3. **Find K and n from two points** (0.35, 217 MPa) and (0.68, 259 MPa): n = ln(σ₂/σ₁)/ln(ε₂/ε₁) ≈ **0.27**; K = σ₁/ε₁ⁿ ≈ **290 MPa** (K is the stress at ε = 1). **Prof:** with an automated tensile test you have many sampled points, so fit by **least squares on log–log axes**: slope = n, value at ε = 1 = K.
+4. **Blank size for a bend:** t = 5 mm cold-rolled steel, R = 8.5 mm, bend angle 140° (the part is bent to 40°). R/t = 1.7 < 2, so K\_ba = 0.33. A\_b = 2π(α/360)(R + K\_ba·t) ≈ **24.8 mm**. The straight legs are the drawing dimensions minus (R + t): (85 − 13.5) + (46.5 − 13.5) = 104.5 mm. Blank length ≈ **129.3 mm**. Why bother: the inside compresses and the outside stretches, so a blank cut to the developed outline would come out too long.
+5. **Fraction that doesn't yield in a bend:** t = 1 mm, bend radius 120 mm, Y′ = 210 MPa, E′ = 224 GPa. ε\_y = Y′/E′ ≈ 9.4·10⁻⁴; elastic core half-thickness z\_e = ε\_y·r ≈ **0.1125 mm**, so 2·0.1125 = 0.225 mm = **22.5% of the thickness stays elastic**. Thin sheet + large radius = a big elastic core = springback.
+6. **Tool radius to compensate springback:** t = 1.2 mm, Y′ = 300 MPa, E′ = 224 GPa, wanted final radius r′ = 250 mm. From 1/r − 1/r′ = 3Y′/(tE′): **r ≈ 136 mm** (no strain hardening, neutral axis at mid-plane). It comes from M\_p = wYt²/4 and the elastic recovery ΔM = (wE′t³/12)(1/r − 1/r′).
+
+### L. Cost: casting vs additive manufacturing (solved in class 3 Nov)
+
+Part 0.7 kg, material €50/kg. Casting: f = 0.40, C\_t = €8,000, Ṅ = 2.5 parts/h, C\_c = €100k. AM: f = 0.10, C\_t = €16,000 (consumables), Ṅ = 5 parts/h, C\_c = €500k. Both: C\_oh = €30/h, L = 0.3, t\_wo = 5 years, so hours = 24·365·5·0.3 = 13,140 h.
+
+- Casting: C = 0.7·50/0.6 + (100,000/13,140 + 30)/2.5 + 8,000/N ≈ **73.4 + 8,000/N** €
+- AM: C = 0.7·50/0.9 + (500,000/13,140 + 30)/5 + 16,000/N ≈ **52.5 + 16,000/N** €
+- Equal cost at **N ≈ 383 parts** (casting is cheaper below, AM above). Casting at N = 100: **≈ €153/part**.
+- If the material price rises, casting (40% scrap) suffers more, so the crossover moves to **fewer parts**.
+
+### M. Cost: minimum production rate to keep the profit (solved in class 4 Nov)
+
+Prosthesis 0.9 kg, stamping with f = 0.30, sold at €250 with €30 profit, so C ≤ **€220**. Material €100/kg in 2026, **+20%** (tariffs) in 2027 → €120/kg. C\_t = €5,000, N = 10,000, C\_oh = €100/h (one person), L = 0.3, t\_wo = 5 years, C\_c = €1.8M, so hours = 24·365·5·0.3 = 13,140 h.
+
+1. Material 0.9·120/0.7 = €154.3; tooling 5,000/10,000 = €0.5; the rest must stay ≤ 220 − 154.8 = €65.2 = (1.8M/13,140 + 100)/Ṅ = 237/Ṅ, so **Ṅ ≥ 3.63 → at least 4 parts/h** (with the 2026 price, 2.6 parts/h was enough).
+2. Two operators: L = 0.6 but C\_oh = €200/h, so (68.5 + 200)/Ṅ ≤ 65.2 → **Ṅ ≥ 4.1 parts/h**: you must produce faster, so it's a **disadvantage** under these assumptions.
+
+Note the inequality direction: the cost must stay **below** €220, so the rate comes out as a **minimum**.
+
 ## Likely oral questions with model answers
 
 Prof. Demir teaches by asking the class questions, and the oral will likely sound the same. Answer in the chain (physics → model → disturbance → sensing → control), give one number, and link to another lecture.
@@ -1898,6 +1979,13 @@ Prof. Demir teaches by asking the class questions, and the oral will likely soun
 11. **How do you decide between sand and die casting economically?** C\_unit = mC\_m/(1−f) + C\_t/N + (C\_c/(L t\_wo) + C\_oh)/Ṅ. Die casting has high C\_t and C\_c but high Ṅ. In the slide example the crossover is at about 4,000 parts. This quantifies the L1.1 fixed-vs-programmable choice.
 12. **v\_max vs v\_min in machining economics?** v\_max minimises cycle time (bottleneck machine, tool cost ignored), T\_max = (1/n − 1)T\_t. v\_min minimises cost by also paying for edges, T\_min = (1/n − 1)(T\_t + C\_e/C\_r), so v\_min < v\_max. Check against spindle power, forces, rigidity, finish.
 13. **Cost, price, value?** Cost < Price < Value. Bottom-up estimates use CAM cycle times, CNC/PLC logs, MES. Rules: standard, simple, design for assembly, specify only what is needed (tolerances cost money).
+14. **How do you make a machine tool precise beyond the servo loop?** Avoid errors first: stiff and well-damped structure (cast iron, polymer concrete, geometry) with natural frequencies away from the process frequency, thermal stability (symmetry, climate control), careful assembly; then characterise residual errors and compensate them with lookup tables; probe or fixture the part so the program's zero matches reality.
+15. **Why is programming a 6-DOF robot harder than a CNC?** Cartesian X, Y, Z are not joint axes, so every move needs inverse kinematics over all joints; you define frames (base, tool/TCP, work object), the pose (position + quaternion) and the configuration; IK has multiple or no solutions, chosen with process knowledge (collisions, forces, singularities, stability). Robot languages and CAM are controller-specific, while ISO code is standard.
+16. **How would you find K and n for a material?** From a tensile test: convert force and length to true stress and true strain (constant volume), take the plastic part, and fit σ = Kεⁿ by least squares on log–log axes (slope = n, intercept at ε = 1 = K). With only two points, n = ln(σ₂/σ₁)/ln(ε₂/ε₁). A hot process shows almost no hardening (n → 0).
+17. **When does a robot make sense for additive manufacturing?** For large or complex parts and one-offs: a 6-DOF arm + positioner (or a linear axis) gives a huge, reorientable workspace without dedicated tooling (wire-arc AM, laser DED, big polymer prints such as the boat). The cost is moved into programming and process knowledge (heat input, warping, build angle), which must be modelled and monitored.
+18. **Engineering control vs statistical process control?** Engineering control acts on the process in real time to follow a target (feedback loop, fast). SPC assesses the process from samples over batches, shifts or days to detect non-random variation and decide whether it is stable (control charts, phase I/II, sampling plan). You need both: a tracking robot can be in control while an oil spot makes one weld fail.
+19. **Why is classic SPC not enough for high-value or one-off parts, and what replaces it?** Product-based charts need many sampled parts and only see faults at the end; a 20 h titanium bracket, a one-week AM part or a custom prosthesis can't wait, and one-offs give no samples. Use in-line/in-process sensor data (spindle power, vibration, force, emissions, cameras, scans, CT) to learn the in-control behaviour quickly and detect drifts during production.
+20. **How can automation reduce the unit cost?** Term by term: less scrap (precision), cheaper or longer-lived tooling (wear monitoring, flexible tooling), higher production rate (handling, fewer idle times) at higher capital cost, and overhead that may go down (people) or up (energy, maintenance, licences). Check with the model, e.g. doubling the load factor with a second operator can raise the required rate.
 
 ## Background from the lectures (less exam-critical)
 
@@ -1991,6 +2079,7 @@ He started from a classroom chair: made in thousands to tens of thousands a year
 - **Prof — examples of cost vs price vs value:** a family car has **price close to cost** (huge pressure in automotive); a fast red sports car has price far above cost (value); **Italian eyewear** is cheap plastic to make but very expensive (perceived value; he lost his at a concert and "still cries").
 - **Class discussion — phone cover:** sells for €15–20, costs **tens of cents** to make (cheap elastomer + **mass production**). **Titanium hip implant:** small numbers, expensive alloy, complex geometry, per patient, so it might cost about €1000 to make but sells for tens of thousands, because of the **research and certification** (millions of euros of testing before a metal goes into a human body). Cost isn't only material: it's **volume, precision and know-how**.
 - **Prof:** top-down example: "a similar project cost €250k, this one will be about €275k." Bottom-up needs **a lot of data**. **Cost per kilogram** (like apples at the grocery) shows the value added: construction about $1/kg, packaging about $10/kg (cheap but very light), ships about $100/kg, luxury cars up to about $1000/kg, then appliances, sports gear, and at the top **aerospace and biomedical** (implants: tens of thousands per kg; even contact lenses are expensive per gram). A spacecraft must **work**, so performance comes first; a warehouse can always be made cheaper.
+- **Prof (4 Nov):** after the write-off time the machine is paid off but can keep running (a Fiat Ducato line in Italy is about 20 years old); "I won't ask these to you in an oral exam". On replacing workers with AI: somebody has to earn money to buy the products; Europe's issue is **reshoring**, bringing production back through automation because people don't want some jobs. AM avoids dedicated tooling (consumables are negligible by comparison).
 
 ### L2.1 CNC machine tools
 
@@ -2004,3 +2093,13 @@ He started from a classroom chair: made in thousands to tens of thousands a year
 - **Prof:** everything from the process theory is now **coded**: feed, spindle speed (from your power calculations), even the **tool** to use (T19).
 - **Prof — guideways:** classic sliding guides are **dovetails with lubricant**; modern **rolling guideways** reach about **5 m/s and 30 g**.
 - **Class discussion — pneumatic actuators?** Impulsive, imprecise, **hard to close the loop** (air is compressible), so not for machine-tool axes. Acceptable uses: the **die-casting plunger** (L1.2) and **pick-and-place**. Forging uses **hydraulics** (force). In battery manufacturing, **electromagnetic and vacuum** grippers are used for handling.
+- **Prof (27 Oct) — examples:** a company near Lecco makes satellite mirrors in clean, climate-controlled rooms (nanometric precision); the brass turned-part video; a 5-axis compressor impeller ("if you ask me how to program this I wouldn't know, but the essentials are the same"); a 6-axis laser tube cutter like the ones students see on the BLM visit. Interested students can take on tool-path challenges in the lab.
+
+### L2.2 Robotic manipulators
+
+- **Prof (27 Oct):** "this is another robotics lecture on its own"; the course looks at robots performing the transformation, not pick-and-place. ABB RAPID is used only as an example ("we're not sponsored"); in the lab you'll do similar things with the Dobot. Mobile robots ("the usual suspect is the dog robot") are becoming interesting, e.g. for repair.
+- **Prof (3 Nov):** the printed boat is by **Caracol**, an SME near Milan that also makes aerospace parts (6-DOF arm on a linear guide; "this thing actually sailed"). The horn-shaped laser-DED part and the wire-arc parts were made in his lab. How boats are usually made: fibreglass and resin laid in a mould, or bent and welded steel.
+
+### L3.1 Smart manufacturing
+
+- **Prof (4 Nov):** examples of AM parts that are hard to measure: a tooling insert with internal channels, a titanium lattice hip cup, Airbus brackets, a small turbine; **Camozzi**, an Italian company making large gantry AM machines; with colleagues in Germany his lab collected about 4 TB of process-camera data. The statistics part of the course follows (Prof. Grasso's module).
