@@ -21,6 +21,9 @@ The source of truth is [the study guide](https://claude.ai/artifact/WrGc96ueegSH
 | L2.1 | CNC machine tools | [L2.1-cnc-machine-tools.md](chapters/L2.1-cnc-machine-tools.md) |
 | L2.2 | Robotic manipulators for manufacturing | [L2.2-robotic-manipulators-for-manufacturing.md](chapters/L2.2-robotic-manipulators-for-manufacturing.md) |
 | L3.1 | Smart manufacturing – introduction | [L3.1-smart-manufacturing-introduction.md](chapters/L3.1-smart-manufacturing-introduction.md) |
+| L3.2 | Smart manufacturing – sensing and data mining | [L3.2-smart-manufacturing-sensing-and-data-mining.md](chapters/L3.2-smart-manufacturing-sensing-and-data-mining.md) |
+| L3.3 | Statistical process monitoring – part 1: SPC fundamentals | [L3.3-statistical-process-monitoring-part-1-spc-fundamentals.md](chapters/L3.3-statistical-process-monitoring-part-1-spc-fundamentals.md) |
+| L3.4 | Statistical process monitoring – part 2: in-process monitoring | [L3.4-statistical-process-monitoring-part-2-in-process-monitoring.md](chapters/L3.4-statistical-process-monitoring-part-2-in-process-monitoring.md) |
 
 Each chapter file has four parts: slides and the professor's exam-relevant explanations (with slide images), the professor's background comments, the practice exercises, and the likely oral questions for that chapter.
 
