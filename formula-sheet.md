@@ -142,3 +142,10 @@ Note the inequality direction: the cost must stay **below** €220, so the rate 
 4. **I–MR:** x̄ = 0.4886, MR̄ = 0.7426 → MR chart UCL = 3.267·MR̄ = **2.426**; I chart 0.4886 ± 3·0.7426/1.128 = **−1.49 / 2.46**.
 
 Order of work: look at the data, check normality and independence, dispersion chart first, then the mean chart, remove points only with an assignable cause, recompute.
+
+## O. Multivariate monitoring (from the L3.5 slides)
+
+1. **Familywise false alarms:** p independent charts each with α = 0.05 → α′ = 1 − 0.95ᵖ: p = 2 → 0.0975 (ARL₀ ≈ 10), p = 3 → 0.143 (≈ 7), p = 4 → 0.185 (≈ 5.4). To get α′ = 0.05 with p = 2 independent charts: α = 1 − √0.95 = **0.0253**, z\_{α/2} = **2.237**. **Bonferroni** (any dependence): αᵢ = α\_fam/p, e.g. 0.05/4 = **0.0125**.
+2. **χ² region for p = 2, σ₁ = σ₂ = σ, σ₁₂ = 0:** circle of radius (σ/√n)·√χ²\_{α′}(2); √χ²\_{0.05}(2) = **2.448**, √χ²\_{0.01}(2) = **3.035** (for p = 2, χ²\_α(2) = −2 ln α).
+3. **Hotelling T² limits:** n > 1: Phase 1 UCL = p(m−1)(n−1)/(mn−m−p+1)·F\_{α,p,mn−m−p+1}, Phase 2 the same with (m+1). n = 1: Phase I (m−1)²/m·β\_{α,p/2,(m−p−1)/2}, Phase II p(m+1)(m−1)/(m²−mp)·F\_{α,p,m−p}, with Σ from successive differences S₂ = V′V/(2(m−1)).
+4. **PCA:** eigen-decompose S (or the correlation matrix if units differ); explained variance of PC i = λᵢ/Σλ; keep the smallest m whose cumulative share reaches the threshold; monitor T² on the m scores **and** SSE of the reconstruction.

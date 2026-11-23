@@ -2090,6 +2090,128 @@ With autocorrelation the real ARL₀ is not the nominal one (usually many more f
 
 **Exam link:** the in-process signals of L1.4 (photodiode acceptance band), L1.6 (spindle power) and L1.8 (punch force) are exactly what this chapter monitors. Say how you would window the signal, which feature you would extract, how you would check normality and independence, and which chart you would use.
 
+## L3.5 Smart manufacturing – PCA and multivariate process monitoring
+
+Real monitoring has **many variables** at once: several features from one signal, several signals, images and multimodal data. Running one chart per variable inflates the false-alarm rate and ignores the correlations, so you either **correct α** (Bonferroni) or monitor the **joint distribution** with a χ² chart (known parameters) or **Hotelling's T²** chart (estimated parameters). When the number of variables is large (beyond about 10) T² loses power, so you first reduce the dimension with **principal component analysis (PCA)** and then monitor the retained components with T² **plus** the reconstruction error (SSE). *(From the slides, Prof. Grasso; references: Montgomery, Introduction to Statistical Quality Control; Jolliffe, Principal Component Analysis. No recording yet.)*
+
+### A multi-dimensional problem
+
+- **One signal, many features** z₁(τ) … z\_p(τ) (L3.4); **many signals**, each with its own features (watch the **synchronisation**); **images, videos, multimodal** data. Example (forming): punch force, stroke, energy and so on, each chosen because it tells you about part quality or process stability.
+- **The naive way:** one control chart per variable in parallel. The cons: the overall false-alarm rate grows with p, and correlations between variables are ignored.
+
+&#91;image: One signal or many: features, synchronisation, multimodal data (L3.5 slide 2)\]
+
+&#91;image: Example of variable selection in forming (L3.5 slide 3)\]
+
+&#91;image: p univariate charts in parallel: what are the cons? (L3.5 slide 4)\]
+
+### Familywise Type I error and Bonferroni
+
+With p **independent** charts, each with false-alarm rate α, the probability that **at least one** raises a false alarm is:
+
+```latex
+\alpha' = 1 - (1-\alpha)^p \qquad \Rightarrow \qquad \alpha = 1 - (1-\alpha')^{1/p}
+```
+
+With α = 0.05: p = 2 → α′ = 0.0975 (ARL₀ ≈ 10); p = 3 → 0.143 (ARL₀ ≈ 7); p = 4 → 0.185 (ARL₀ ≈ 5.4; the slide rounds it to 6). You expected ARL₀ = 20. So **correct each chart's α** to hit the target familywise α′. If the variables are **not independent**, use **Bonferroni**: α′ ≤ Σαᵢ, so choose **αᵢ = α\_fam / p** for each chart (e.g. p = 4, α\_fam = 0.05 → αᵢ = 0.0125). It is conservative but always safe.
+
+&#91;image: Familywise error grows with p; correction and Bonferroni (L3.5 slide 6)\]
+
+### From univariate to multivariate: the χ² chart
+
+The multivariate normal pdf replaces (x − μ)²/σ² with the **Mahalanobis-type distance** (x − μ)′Σ⁻¹(x − μ). Key property: for X̄ \~ Nₚ(μ, Σ/n),
+
+```latex
+\chi_0^2 = n\,(\bar{\mathbf x} - \boldsymbol\mu)'\,\boldsymbol\Sigma^{-1}(\bar{\mathbf x} - \boldsymbol\mu) \sim \chi^2(p) \qquad UCL = \chi^2_{\alpha}(p),\ \text{no LCL (squared statistic)}
+```
+
+- For p = 2 the in-control region is an **ellipse** in the (x̄₁, x̄₂) plane, tilted by the covariance σ₁₂. With σ₁ = σ₂ = σ and σ₁₂ = 0 it becomes a **circle of radius (σ/√n)·√χ²\_α(2)**.
+- **Exam alert — the ellipse vs the rectangle:** two separate charts give a **rectangle**. Region A = points inside the rectangle but outside the ellipse: real **out-of-control states the univariate charts miss** (the combination of x₁ and x₂ is unusual even though each looks fine). Region B = inside the ellipse but outside the rectangle: **false alarms** from the univariate charts. Region C = outside the rectangle on both variables but inside the ellipse: a "double" false alarm.
+- Matching the two approaches at the same familywise α′ (independent variables, α = 1 − √(1 − α′)): α′ = 0.05 → circle radius factor √χ² = 2.448 vs z\_{α/2} = 2.237; α′ = 0.01 → 3.035 vs 2.806. (The slide's third row, labelled α′ = 0.005, actually shows the values for **α′ = 0.001**: 3.717 and 3.481; for 0.005 they would be 3.255 and 3.023.)
+- The χ² chart assumes **known** μ and Σ; if unknown, estimate them in a design phase (Phase 1) and use them in Phase 2, as for univariate charts.
+
+&#91;image: Multivariate normal: the exponent becomes (x−μ)′Σ⁻¹(x−μ) (L3.5 slide 8)\]
+
+&#91;image: p = 2: the χ² statistic and the elliptical control region (L3.5 slide 10)\]
+
+&#91;image: Univariate rectangle vs multivariate ellipse: regions A, B, C (L3.5 slide 11)\]
+
+&#91;image: Matching the circle and the rectangle at the same familywise α′ (L3.5 slide 12)\]
+
+&#91;image: The χ² control chart with known parameters (L3.5 slide 13)\]
+
+### Hotelling's T² chart (unknown parameters)
+
+From m samples of size n: the mean of each variable in each sample x̄\_jk, the variances S²\_jk and covariances S\_jhk within each sample; then the **grand means** x̄̄\_j and the **averages** of the variances S²\_j and covariances S\_jh across samples. These give the estimates **μ → x̄̄** and **Σ → S**.
+
+```latex
+T_k^2 = n\,(\bar{\mathbf x}_k - \bar{\bar{\mathbf x}})'\,\mathbf S^{-1}(\bar{\mathbf x}_k - \bar{\bar{\mathbf x}}) \\
+\text{Phase 1: } UCL = \frac{p(m-1)(n-1)}{mn-m-p+1}\,F_{\alpha,\,p,\,mn-m-p+1} \qquad \text{Phase 2: } UCL = \frac{p(m+1)(n-1)}{mn-m-p+1}\,F_{\alpha,\,p,\,mn-m-p+1} \qquad LCL = 0
+```
+
+Because Σ is **estimated**, T² follows a scaled **F** distribution, not χ². In Phase 2, m is the final number of Phase 1 samples (m\*).
+
+&#91;image: Hotelling's T²: Phase 1 limits from the F distribution (L3.5 slide 17)\]
+
+&#91;image: Hotelling's T²: Phase 2 limits (L3.5 slide 18)\]
+
+**Individual observations (n = 1):** as for the I–MR chart, estimate Σ from **successive differences**. The "long-period" estimator S₁ = Σ(xᵢ − x̄)(xᵢ − x̄)′/(m − 1) is very sensitive to outliers; the **short-period** estimator uses vᵢ = xᵢ₊₁ − xᵢ stacked in a matrix V:
+
+```latex
+\mathbf S_2 = \frac{1}{2}\,\frac{\mathbf V'\mathbf V}{m-1} \qquad T^2 = (\mathbf x - \bar{\mathbf x})'\mathbf S^{-1}(\mathbf x - \bar{\mathbf x}) \\
+\text{Phase I: } UCL = \frac{(m-1)^2}{m}\,\beta_{\alpha,\,p/2,\,(m-p-1)/2} \qquad \text{Phase II: } UCL = \frac{p(m+1)(m-1)}{m^2 - mp}\,F_{\alpha,\,p,\,m-p} \qquad LCL = 0
+```
+
+**Exam alert — the curse of dimensionality:** these charts work well only up to about **p ≤ 10**. As p grows, the out-of-control ARL for the same shift grows (slide 21: for a shift δ = 1, ARL₁ ≈ 11 with p = 2 but ≈ 20 with p = 15). Hence **dimensionality reduction**.
+
+&#91;image: T² for individual observations: short-period estimator of Σ (L3.5 slide 19)\]
+
+&#91;image: T² for individual observations: Phase I (beta) and Phase II (F) limits (L3.5 slide 20)\]
+
+&#91;image: ARL grows with the number of variables p (L3.5 slide 21)\]
+
+### Principal component analysis
+
+PCA (also called the Karhunen–Loève or Hotelling transform) is used for dimensionality reduction, visualisation, exploratory analysis, noise reduction, feature extraction and **process monitoring / fault detection**. Idea: rotate the p correlated variables into a new **orthonormal** system z₁ … z\_p where the first few axes carry most of the variability, and keep only the first **m ≪ p**.
+
+- **Basics:** mean vector μ = E(x); covariance matrix Σ with σᵢⱼ = cov(xᵢ, xⱼ); correlation matrix P with ρᵢⱼ = cov/√(VᵢVⱼ). Key property: **V(a′x) = a′Σa** for a constant vector a.
+- **First PC:** the linear combination z₁ = α₁′x with **maximum variance** α₁′Σα₁ subject to α₁′α₁ = 1. With a Lagrange multiplier: (Σ − λI)α₁ = 0, so **α₁ is the eigenvector of Σ with the largest eigenvalue λ₁**, and the variance of z₁ is λ₁.
+- **Next PCs:** maximise the variance while staying uncorrelated (orthogonal) to the previous ones → the other **eigenvectors**, in decreasing order of eigenvalue λ₁ ≥ λ₂ ≥ … ≥ λ\_p.
+- **Scores** = the projections z (the new variables); **loadings** = the eigenvector coefficients α (the weights of the original variables).
+- **Centre** the data first (subtract each column's mean). If the variables have different units or very different variances, **standardise** them, which is the same as doing PCA on the **correlation matrix** instead of the covariance matrix; the two give different results and you can't convert one into the other. If Σ is unknown, use the sample matrix S.
+
+&#91;image: PCA in 3D: new axes along the directions of maximum variance (L3.5 slide 24)\]
+
+&#91;image: PCA as a change of reference system: z = α′x (L3.5 slide 27)\]
+
+**How many PCs?** The total variance is preserved: Σλᵢ = ΣVar(xₖ). Plot the **scree plot** (λᵢ/Σλ, explained variance per PC) and the **cumulative explained variance**, and keep the smallest m that reaches a chosen threshold (e.g. 80–90%), or stop at the elbow of the scree plot. (Slide 31's example says "threshold 0.9 → m = 2", but in its plot the cumulative variance at 2 PCs is about 0.87, just below the line; with a strict 0.9 threshold you would keep 3.)
+
+&#91;image: Scree plot and cumulative explained variance (L3.5 slide 31)\]
+
+### Monitoring with PCA: T² + SSE
+
+Project the p features onto the m retained PCs and run a **T² chart on the m scores** (low-dimensional space). But T² only sees variation **along the retained PCs**: a new kind of anomaly may show up in the discarded directions. So also chart the **residual sum of squares** of the PCA reconstruction with an individuals (I) chart:
+
+```latex
+SSE_i = \lVert \mathbf x_i - \hat{\mathbf x}_i^{(k)} \rVert^2, \qquad \hat{\mathbf x}_i^{(k)} = \bar{\mathbf x} + \sum_{j=1}^{k} z_{ij}\,\boldsymbol\alpha_j
+```
+
+**Decision rule:** signal an anomaly if **either T² or SSE** exceeds its Phase I limit. (With standardised data the reconstruction is standardised too.)
+
+&#91;image: T² in the space of the retained PCs (L3.5 slide 22)\]
+
+&#91;image: T² + SSE: catch anomalies in the retained and the discarded directions (L3.5 slide 33)\]
+
+**Examples from the slides:** (1) p signal features → PCA keeps 3 PCs (80% of the variance) → new signals projected into that space; (2) **water-jet cutting pressure profiles**: PCA on the profiles instead of many univariate charts with Bonferroni limits; (3) **in-line detection of geometric defects** in 3D-printed fan covers (HP Multi Jet Fusion, MADE Competence Centre): features extracted by image processing, PCA on the correlation matrix, the first 2 PCs explain over 80% of the variability, then a multivariate chart on them.
+
+&#91;image: Example 1: projecting new signals onto 3 retained PCs (L3.5 slide 34)\]
+
+&#91;image: Example 2: PCA for water-jet pressure profiles (L3.5 slide 35)\]
+
+&#91;image: Example 3: multivariate chart on 2 PCs for 3D-printed fan covers (L3.5 slide 37)\]
+
+**Exam link:** this closes the chain started in L3.2: sensors → features (L3.4) → many correlated features → PCA → T² + SSE charts → alarm → assignable cause. For any process (welding photodiode + camera, milling force + vibration + power), say which features you would extract, why one chart per feature is a bad idea (familywise α, correlations), and how PCA + T²/SSE fixes it.
+
 ## Cross-topic links for the oral
 
 Every process in the course follows the same chain, so the strongest oral answers place a detail in that chain: **physics → simplified model → what the model misses (model errors + disturbances) → what you can sense → how you close the loop → which automation level it sits in.** The oral explicitly tests "the ability to reason and develop links among the different topics".
@@ -2259,6 +2381,13 @@ Note the inequality direction: the cost must stay **below** €220, so the rate 
 
 Order of work: look at the data, check normality and independence, dispersion chart first, then the mean chart, remove points only with an assignable cause, recompute.
 
+### O. Multivariate monitoring (from the L3.5 slides)
+
+1. **Familywise false alarms:** p independent charts each with α = 0.05 → α′ = 1 − 0.95ᵖ: p = 2 → 0.0975 (ARL₀ ≈ 10), p = 3 → 0.143 (≈ 7), p = 4 → 0.185 (≈ 5.4). To get α′ = 0.05 with p = 2 independent charts: α = 1 − √0.95 = **0.0253**, z\_{α/2} = **2.237**. **Bonferroni** (any dependence): αᵢ = α\_fam/p, e.g. 0.05/4 = **0.0125**.
+2. **χ² region for p = 2, σ₁ = σ₂ = σ, σ₁₂ = 0:** circle of radius (σ/√n)·√χ²\_{α′}(2); √χ²\_{0.05}(2) = **2.448**, √χ²\_{0.01}(2) = **3.035** (for p = 2, χ²\_α(2) = −2 ln α).
+3. **Hotelling T² limits:** n > 1: Phase 1 UCL = p(m−1)(n−1)/(mn−m−p+1)·F\_{α,p,mn−m−p+1}, Phase 2 the same with (m+1). n = 1: Phase I (m−1)²/m·β\_{α,p/2,(m−p−1)/2}, Phase II p(m+1)(m−1)/(m²−mp)·F\_{α,p,m−p}, with Σ from successive differences S₂ = V′V/(2(m−1)).
+4. **PCA:** eigen-decompose S (or the correlation matrix if units differ); explained variance of PC i = λᵢ/Σλ; keep the smallest m whose cumulative share reaches the threshold; monitor T² on the m scores **and** SSE of the reconstruction.
+
 ## Likely oral questions with model answers
 
 Prof. Demir teaches by asking the class questions, and the oral will likely sound the same. Answer in the chain (physics → model → disturbance → sensing → control), give one number, and link to another lecture.
@@ -2311,6 +2440,9 @@ Prof. Demir teaches by asking the class questions, and the oral will likely soun
 24. **How do you design an X̄–R chart when μ and σ are unknown?** Phase 1: m ≥ 20–25 subgroups in stable conditions; check normality and independence; design the R chart first (R̄, D₃R̄, D₄R̄), then the X̄ chart (x̄̄ ± A₂R̄); remove points with an assignable cause and recompute. Phase 2: plot new subgroups against the fixed limits, investigate alarms, revise the limits periodically. Use X̄–S for large or variable n, I–MR for n = 1.
 25. **Why do in-process signal features break the SPC assumptions, and what do you do?** Features such as RMS or band energy are non-normal by construction, and windows at high rates, process dynamics and drifts make them autocorrelated, so the limits and false-alarm rate are wrong. Check with a normal probability plot and the autocorrelation function; then use KDE probability limits, gapping or batching, or model the dynamics (AR/ARMA) and chart the residuals.
 26. **How would you monitor a cyclic signal, such as the cutting force of a repeated operation?** Profile monitoring: from in-control cycles build the average profile and an envelope x̄\_t ± K·s\_t (location control chart) and alarm when a new cycle leaves it; or fit a model to each profile and chart its parameters and residuals, which detects small shifts with higher power.
+27. **Why not just use one control chart per variable?** The false-alarm rate adds up: with p independent charts at α each, α′ = 1 − (1 − α)ᵖ (p = 3, α = 0.05 → 0.14, ARL₀ ≈ 7 instead of 20), so you must lower each α (exact correction for independent variables, Bonferroni α/p otherwise). And separate charts ignore correlations: the joint in-control region is an ellipse, not a rectangle, so they miss unusual combinations and raise false alarms elsewhere. Monitor the joint distribution with χ² or Hotelling's T².
+28. **χ² vs Hotelling's T²?** Both measure n(x̄ − μ)′Σ⁻¹(x̄ − μ). χ² uses known μ and Σ, so it follows χ²(p) and UCL = χ²\_α(p). T² uses the estimates x̄̄ and S from Phase 1, so its limits come from a scaled F distribution (beta in Phase I for n = 1), different for Phase 1 and Phase 2. Only an upper limit, since the statistic is squared. For n = 1, estimate Σ from successive differences.
+29. **Explain PCA and how you use it for monitoring.** Find orthonormal directions of maximum variance: the eigenvectors of the covariance (or correlation, if units differ) matrix, ordered by eigenvalue; scores = projections, loadings = coefficients. Keep m ≪ p components covering most of the variance (scree plot, cumulative share). Then monitor T² on the m scores plus SSE of the reconstruction, because T² can't see anomalies in the discarded directions; alarm if either exceeds its limit. Needed because T² loses power above about 10 variables.
 
 ## Background from the lectures (less exam-critical)
 

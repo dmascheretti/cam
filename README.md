@@ -24,6 +24,7 @@ The source of truth is [the study guide](https://claude.ai/artifact/WrGc96ueegSH
 | L3.2 | Smart manufacturing – sensing and data mining | [L3.2-smart-manufacturing-sensing-and-data-mining.md](chapters/L3.2-smart-manufacturing-sensing-and-data-mining.md) |
 | L3.3 | Statistical process monitoring – part 1: SPC fundamentals | [L3.3-statistical-process-monitoring-part-1-spc-fundamentals.md](chapters/L3.3-statistical-process-monitoring-part-1-spc-fundamentals.md) |
 | L3.4 | Statistical process monitoring – part 2: in-process monitoring | [L3.4-statistical-process-monitoring-part-2-in-process-monitoring.md](chapters/L3.4-statistical-process-monitoring-part-2-in-process-monitoring.md) |
+| L3.5 | Smart manufacturing – PCA and multivariate process monitoring | [L3.5-smart-manufacturing-pca-and-multivariate-process-monitoring.md](chapters/L3.5-smart-manufacturing-pca-and-multivariate-process-monitoring.md) |
 
 Each chapter file has four parts: slides and the professor's exam-relevant explanations (with slide images), the professor's background comments, the practice exercises, and the likely oral questions for that chapter.
 
