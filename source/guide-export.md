@@ -2122,7 +2122,7 @@ With α = 0.05: p = 2 → α′ = 0.0975 (ARL₀ ≈ 10); p = 3 → 0.143 (ARL�
 The multivariate normal pdf replaces (x − μ)²/σ² with the **Mahalanobis-type distance** (x − μ)′Σ⁻¹(x − μ). Key property: for X̄ \~ Nₚ(μ, Σ/n),
 
 ```latex
-\chi_0^2 = n\,(\bar{\mathbf x} - \boldsymbol\mu)'\,\boldsymbol\Sigma^{-1}(\bar{\mathbf x} - \boldsymbol\mu) \sim \chi^2(p) \qquad UCL = \chi^2_{\alpha}(p),\ \text{no LCL (squared statistic)}
+\chi_0^2 = n\,(\bar{\mathbf x} - \mathbf{\mu})'\,\mathbf{\Sigma}^{-1}(\bar{\mathbf x} - \mathbf{\mu}) \sim \chi^2(p) \qquad UCL = \chi^2_{\alpha}(p),\ \text{no LCL (squared statistic)}
 ```
 
 - For p = 2 the in-control region is an **ellipse** in the (x̄₁, x̄₂) plane, tilted by the covariance σ₁₂. With σ₁ = σ₂ = σ and σ₁₂ = 0 it becomes a **circle of radius (σ/√n)·√χ²\_α(2)**.
@@ -2193,7 +2193,7 @@ PCA (also called the Karhunen–Loève or Hotelling transform) is used for dimen
 Project the p features onto the m retained PCs and run a **T² chart on the m scores** (low-dimensional space). But T² only sees variation **along the retained PCs**: a new kind of anomaly may show up in the discarded directions. So also chart the **residual sum of squares** of the PCA reconstruction with an individuals (I) chart:
 
 ```latex
-SSE_i = \lVert \mathbf x_i - \hat{\mathbf x}_i^{(k)} \rVert^2, \qquad \hat{\mathbf x}_i^{(k)} = \bar{\mathbf x} + \sum_{j=1}^{k} z_{ij}\,\boldsymbol\alpha_j
+SSE_i = \lVert \mathbf x_i - \hat{\mathbf x}_i^{(k)} \rVert^2, \qquad \hat{\mathbf x}_i^{(k)} = \bar{\mathbf x} + \sum_{j=1}^{k} z_{ij}\,\mathbf{\alpha}_j
 ```
 
 **Decision rule:** signal an anomaly if **either T² or SSE** exceeds its Phase I limit. (With standardised data the reconstruction is standardised too.)
@@ -2211,6 +2211,110 @@ SSE_i = \lVert \mathbf x_i - \hat{\mathbf x}_i^{(k)} \rVert^2, \qquad \hat{\math
 &#91;image: Example 3: multivariate chart on 2 PCs for 3D-printed fan covers (L3.5 slide 37)\]
 
 **Exam link:** this closes the chain started in L3.2: sensors → features (L3.4) → many correlated features → PCA → T² + SSE charts → alarm → assignable cause. For any process (welding photodiode + camera, milling force + vibration + power), say which features you would extract, why one chart per feature is a bad idea (familywise α, correlations), and how PCA + T²/SSE fixes it.
+
+## L3.6 Smart manufacturing – AI-driven monitoring and automation
+
+When in-control data are **not multivariate normal** (skewed, lying on a curved manifold, multimodal), the elliptical T² region of L3.5 no longer fits them. One answer is a **data-driven control region**: extend KDE (L3.4) to p dimensions, or use a **one-class support vector machine (SVDD)**, which wraps the Phase I data in the tightest kernel boundary and uses the kernel distance from its centre as the monitored statistic. The second half of the deck surveys where AI in manufacturing quality is going: deep learning that learns its own features, foundation models with few- and zero-shot learning, synthetic data from generative AI, explainable AI and federated learning. *(From the slides, Prof. Grasso. No recording yet.)*
+
+### "Wild" multivariate data
+
+The T² chart assumes the in-control data form one elliptical cloud. Real data can be **non-normal**, lie on a **manifold** (a curved band), or be **multimodal** (several clusters, e.g. different operating modes). An ellipse around them either includes large empty regions (missed alarms) or cuts through real data (false alarms). Options: a **p-dimensional KDE** (as in L3.4) or a non-parametric method such as **support vector machines**.
+
+&#91;image: Non-normal, manifold and multimodal in-control data (L3.6 slide 2)\]
+
+### Support vector machines (two classes)
+
+An SVM separates two classes with the **hyperplane that has the largest margin**, i.e. the widest empty band ("slab") between the classes. The **support vectors** are the points closest to the hyperplane, on the edge of the slab: only they define the solution.
+
+- A **hyperplane** in p dimensions is a flat subspace of dimension p − 1 (a line when p = 2); β = (β₁, …, β\_p) is its normal vector:
+
+```latex
+f(X) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_p X_p = 0
+```
+
+- f(X) > 0 on one side and < 0 on the other. Code the classes as y = +1 and y = −1: if yᵢ·f(xᵢ) > 0 for every point, the hyperplane separates them. Among all separating hyperplanes, the **maximal margin classifier** solves
+
+```latex
+\max_{\beta_0,\dots,\beta_p} M \quad \text{subject to} \quad \sum_{j=1}^{p} \beta_j^2 = 1, \qquad y_i\,(\beta_0 + \beta_1 x_{i1} + \dots + \beta_p x_{ip}) \ge M \quad \forall\, i = 1,\dots,N
+```
+
+- **The same problem written the other way (slide 6):** instead of fixing ‖β‖ = 1, fix the closest points at yᵢf(xᵢ) = 1; then the slab is 2/‖β‖ wide, so maximising the margin = **minimising ‖β‖**:
+
+```latex
+\min_{\beta_0,\beta} \lVert \beta \rVert \quad \text{subject to} \quad y_i\, f(x_i) \ge 1 \ \ \forall\, i \qquad \Longleftrightarrow \qquad \text{margin width } 2M = \frac{2}{\lVert \beta \rVert}
+```
+
+- If the classes overlap, the same idea holds with relaxed constraints (some points may sit inside the margin).
+- **Non-linear boundaries, the kernel trick:** when no straight line separates the classes, replace the inner products with a **kernel** K. The boundary becomes non-linear in the original space (it is linear in an implicit, very high-dimensional feature space), but you still use the linear algorithm:
+
+```latex
+f(x) = \beta_0 + \sum_{i \in \mathcal S} \hat\alpha_i\, K(x, x_i), \qquad K_{poly}(x, y) = (x^\top y + 1)^d, \qquad K_{RBF}(x, y) = \exp\!\left(-\gamma \lVert x - y \rVert^2\right)
+```
+
+(𝒮 = the support vectors; the Gaussian/RBF kernel is the usual choice.)
+
+&#91;image: SVM: separating hyperplane, margin and support vectors (L3.6 slide 3)\]
+
+&#91;image: What is a hyperplane; the normal vector β (L3.6 slide 4)\]
+
+&#91;image: Maximal margin classifier as a constrained optimisation (L3.6 slide 5)\]
+
+&#91;image: Margin width 2M = 2/‖β‖, so minimise ‖β‖ (L3.6 slide 6)\]
+
+&#91;image: Kernel formulation: polynomial and RBF kernels, non-linear boundary (L3.6 slide 8)\]
+
+### One-class SVM as a control chart
+
+**Exam alert:** in SPC there is only **one class** in Phase 1: the in-control data. The **one-class SVM** (also called **support vector data description, SVDD**) adapts the SVM to this case:
+
+- Find the **minimum-volume region** that encloses a chosen **percentage of the Phase I data** (this plays the role of 1 − α).
+- The boundary is an **iso-distance line in kernel terms**: every point on it has the same kernel distance from the centre o, so the region can take any shape that follows the data (bananas, several islands).
+- **As a control chart:** the monitored statistic is each new point's **kernel distance from the centre o**; the control limit **h** is the kernel distance of the boundary. Distance > h → alarm.
+- **Tune the kernel parameters** (e.g. γ of the RBF kernel) to avoid **overfitting** (a boundary hugging every Phase I point: false alarms on new in-control data) and **underfitting** (a blob that also covers empty space: missed shifts). The same bias–variance trade-off as the KDE bandwidth in L3.4.
+
+&#91;image: One-class SVM: a control region that follows the in-control data (L3.6 slide 9)\]
+
+&#91;image: One-class SVM: kernel distance from the centre o and control limit h (L3.6 slide 10)\]
+
+&#91;image: Overfitting, good fit and underfitting of the control region (L3.6 slide 11)\]
+
+### Machine learning vs deep learning
+
+In **machine learning** (SVM, PCA + T², …) you design the features yourself from domain knowledge (L3.4: RMS, band energy …) and the algorithm classifies, regresses or predicts from them. In **deep learning** the **feature extraction is inside the network**: convolutional layers learn the features directly from raw data such as images, with no domain knowledge needed, but with much more data and less transparency.
+
+&#91;image: Machine learning (hand-made features) vs deep learning (learned features) (L3.6 slide 12)\]
+
+### Where AI in manufacturing quality is going
+
+- **Adoption:** 2015–2020 mostly off-line defect detection and predictive-maintenance pilots (computer vision for scratches, cracks, welds); 2020–2025 AI embedded in the QA workflow and connected to MES/QMS, with edge computing and IIoT for real-time feedback; next, self-adapting and autonomous processes (adaptive parameter tuning, self-correction), physical and agentic AI, under regulation (EU AI Act, ISO 9001, IEC 61508). Data foundations and organisation are the main barriers.
+- **"The green way":** accuracy is not the only goal: computational cost and energy matter too, so prefer the model that is accurate enough at the lowest cost.
+- **Foundation models** change five things: task-specific → **general-purpose** (one model for many tasks; transfer, few- and zero-shot learning); data-hungry → **data-efficient** (vital, because industrial datasets are small, fragmented and proprietary); narrow → **multimodal** (images, text, signals, logs and quality reports in one model); training → **adaptation** (big players train, factories only fine-tune or prompt); siloed → **shared intelligence** across lines and factories (Quality 4.0).
+- **Few-/zero-shot learning:** recognise classes with few or no labelled examples by using auxiliary information such as text descriptions, e.g. **CLIP**, which links images and natural language and has been applied to quality monitoring and defect detection.
+- **Synthetic data / generative AI** to balance rare defect classes, create conditions that are hard or impossible to capture, generalise across domains (2D → 3D), and cut expensive experiments and labelling. Families: **GANs** (high-quality images and videos), **VAEs** (compression, reconstruction), **diffusion models** (high-fidelity images, image-to-image translation), **transformers** (text, prompt-based generation). Data augmentation → better training → better accuracy and generalisation.
+- **Explainable AI (XAI):** shows which features or signals drove a decision, so engineers and auditors can trust, justify and audit why the AI flagged a defect or changed a process, which industrial standards and regulation require.
+- **Federated learning:** each factory (client) trains the model **locally on its own data** and sends only the parameter updates; a server aggregates them into a global model and sends it back, repeatedly. Everyone benefits from the others' data **without sharing raw data** (privacy, ownership, compliance).
+
+&#91;image: AI in industrial quality assurance: adoption timeline (L3.6 slide 13)\]
+
+&#91;image: Maturity levels of AI in manufacturing (L3.6 slide 14)\]
+
+&#91;image: The green way: accuracy vs computational cost (L3.6 slide 16)\]
+
+&#91;image: Five shifts brought by foundation models (L3.6 slide 17)\]
+
+&#91;image: From feature-centric to model-centric to data-centric AI (L3.6 slide 19)\]
+
+&#91;image: Few- and zero-shot learning: CLIP (L3.6 slide 20)\]
+
+&#91;image: Synthetic data generation: why and how (L3.6 slide 21)\]
+
+&#91;image: Generative AI for Quality 4.0: GANs, VAEs, diffusion, transformers (L3.6 slide 22)\]
+
+&#91;image: Explainable AI (L3.6 slide 23)\]
+
+&#91;image: Federated learning: local training, central aggregation (L3.6 slide 24)\]
+
+**Exam link:** the monitoring chain of L3.2–L3.6 now has a choice at the last step: univariate charts (L3.3–L3.4), T² / PCA (L3.5) when the features are many but roughly normal, a one-class SVM or KDE region when they are not, and deep learning when the data are raw images. Be ready to say which one fits a given process and why.
 
 ## Cross-topic links for the oral
 
@@ -2443,6 +2547,9 @@ Prof. Demir teaches by asking the class questions, and the oral will likely soun
 27. **Why not just use one control chart per variable?** The false-alarm rate adds up: with p independent charts at α each, α′ = 1 − (1 − α)ᵖ (p = 3, α = 0.05 → 0.14, ARL₀ ≈ 7 instead of 20), so you must lower each α (exact correction for independent variables, Bonferroni α/p otherwise). And separate charts ignore correlations: the joint in-control region is an ellipse, not a rectangle, so they miss unusual combinations and raise false alarms elsewhere. Monitor the joint distribution with χ² or Hotelling's T².
 28. **χ² vs Hotelling's T²?** Both measure n(x̄ − μ)′Σ⁻¹(x̄ − μ). χ² uses known μ and Σ, so it follows χ²(p) and UCL = χ²\_α(p). T² uses the estimates x̄̄ and S from Phase 1, so its limits come from a scaled F distribution (beta in Phase I for n = 1), different for Phase 1 and Phase 2. Only an upper limit, since the statistic is squared. For n = 1, estimate Σ from successive differences.
 29. **Explain PCA and how you use it for monitoring.** Find orthonormal directions of maximum variance: the eigenvectors of the covariance (or correlation, if units differ) matrix, ordered by eigenvalue; scores = projections, loadings = coefficients. Keep m ≪ p components covering most of the variance (scree plot, cumulative share). Then monitor T² on the m scores plus SSE of the reconstruction, because T² can't see anomalies in the discarded directions; alarm if either exceeds its limit. Needed because T² loses power above about 10 variables.
+30. **How do you monitor many variables when the in-control data are not multivariate normal?** The T² ellipse would cover empty space or cut through real data. Use a data-driven region: a p-dimensional KDE, or a one-class SVM (SVDD) that finds the minimum-volume kernel boundary enclosing a chosen share of the Phase I data. The statistic is each point's kernel distance from the centre, the control limit h is the distance of the boundary; tune the kernel (e.g. RBF γ) to avoid over- and underfitting.
+31. **What does an SVM do, and what is the kernel trick?** It separates two classes with the maximum-margin hyperplane; only the support vectors (closest points) matter; maximising the margin 2/‖β‖ = minimising ‖β‖. The kernel trick replaces inner products with a kernel (polynomial, RBF) so a linear method draws a non-linear boundary in the original space.
+32. **Which AI trends matter for quality monitoring?** Deep learning learns features from raw data; foundation models give few- and zero-shot learning (e.g. CLIP) when labelled defects are rare; generative AI makes synthetic data for rare classes; explainable AI makes decisions auditable; federated learning lets factories train a shared model without sharing raw data; and cost and energy ("the green way") matter as well as accuracy.
 
 ## Background from the lectures (less exam-critical)
 
