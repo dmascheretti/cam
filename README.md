@@ -25,6 +25,7 @@ The source of truth is [the study guide](https://claude.ai/artifact/WrGc96ueegSH
 | L3.3 | Statistical process monitoring – part 1: SPC fundamentals | [L3.3-statistical-process-monitoring-part-1-spc-fundamentals.md](chapters/L3.3-statistical-process-monitoring-part-1-spc-fundamentals.md) |
 | L3.4 | Statistical process monitoring – part 2: in-process monitoring | [L3.4-statistical-process-monitoring-part-2-in-process-monitoring.md](chapters/L3.4-statistical-process-monitoring-part-2-in-process-monitoring.md) |
 | L3.5 | Smart manufacturing – PCA and multivariate process monitoring | [L3.5-smart-manufacturing-pca-and-multivariate-process-monitoring.md](chapters/L3.5-smart-manufacturing-pca-and-multivariate-process-monitoring.md) |
+| L3.6 | Smart manufacturing – AI-driven monitoring and automation | [L3.6-smart-manufacturing-ai-driven-monitoring-and-automation.md](chapters/L3.6-smart-manufacturing-ai-driven-monitoring-and-automation.md) |
 
 Each chapter file has four parts: slides and the professor's exam-relevant explanations (with slide images), the professor's background comments, the practice exercises, and the likely oral questions for that chapter.
 
@@ -34,7 +35,8 @@ Each chapter file has four parts: slides and the professor's exam-relevant expla
 - [Likely oral questions with model answers](oral-questions.md)
 - [Cross-topic links for the oral](cross-topic-links.md)
 - [Background from the lectures](background.md)
-- [Full guide as one file](source/guide-export.md) (the raw export, images shown as placeholders)
+- [Full guide as one file](full-guide.md) (everything above in one page, with images and formulas)
+- [Raw export](source/guide-export.md) (the unprocessed export the files are built from)
 
 ## How to use this guide
 

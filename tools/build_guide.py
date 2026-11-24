@@ -15,6 +15,7 @@ What it writes (paths relative to cam-study-guide/):
     oral-questions.md            all likely oral questions
     cross-topic-links.md         the cross-topic table
     background.md                all background comments, by chapter
+    full-guide.md                the whole guide in one file
     images/<Lx.y>/slide-NN.jpg   slide images (only rendered if --pdf-dir is
                                  given and the image is missing)
 
@@ -45,6 +46,7 @@ ORAL_MAP = {
     (2, 21): "L3.2", (2, 22): "L3.3", (2, 23): "L3.3", (2, 24): "L3.3",
     (2, 25): "L3.4", (2, 26): "L3.4",
     (2, 27): "L3.5", (2, 28): "L3.5", (2, 29): "L3.5",
+    (2, 30): "L3.6", (2, 31): "L3.6", (2, 32): "L3.6",
 }
 
 # Which practice exercise (letter of the formula-sheet subsection) belongs
@@ -102,6 +104,30 @@ def convert_images(lines, prefix, needed):
             out.append("%s![%s](%s%s)" % (bullet or "", alt, prefix, path))
         else:
             out.append(line)
+    return out
+
+
+def convert_math(lines):
+    """Turn the export's ```latex code blocks into ```math blocks, which
+    GitHub renders as display math (MathJax). A block written on several
+    lines with \\\\ line breaks is wrapped in a gathered environment, because
+    display math only honours \\\\ inside an environment."""
+    out = []
+    i = 0
+    while i < len(lines):
+        if lines[i].strip() == "```latex":
+            j = i + 1
+            while j < len(lines) and lines[j].strip() != "```":
+                j += 1
+            body = lines[i + 1:j]
+            if len(body) > 1 or any(l.rstrip().endswith("\\\\")
+                                    for l in body):
+                body = ["\\begin{gathered}"] + body + ["\\end{gathered}"]
+            out += ["```math"] + body + ["```"]
+            i = j + 1
+        else:
+            out.append(lines[i])
+            i += 1
     return out
 
 
@@ -232,11 +258,17 @@ def main():
                               "(../oral-questions.md).*"]
         with open(os.path.join(root, "chapters", fname), "w",
                   encoding="utf-8") as f:
-            f.write("\n".join(out).rstrip() + "\n")
+            f.write("\n".join(convert_math(out)).rstrip() + "\n")
 
     def write(name, heading, body):
         with open(os.path.join(root, name), "w", encoding="utf-8") as f:
-            f.write("\n".join(["# " + heading, ""] + trim(body)) + "\n")
+            f.write("\n".join(convert_math(["# " + heading, ""] + trim(body)))
+                    + "\n")
+
+    # The whole guide in one file, with images and math rendered by GitHub.
+    with open(os.path.join(root, "full-guide.md"), "w", encoding="utf-8") as f:
+        f.write("\n".join(convert_math(convert_images(lines, "", needed)))
+                .rstrip() + "\n")
 
     write("formula-sheet.md", "Formula sheet and practice exercises",
           shift_headings(formula, -1))
@@ -268,8 +300,10 @@ def main():
                "(oral-questions.md)",
                "- [Cross-topic links for the oral](cross-topic-links.md)",
                "- [Background from the lectures](background.md)",
-               "- [Full guide as one file](source/guide-export.md) (the raw "
-               "export, images shown as placeholders)", "",
+               "- [Full guide as one file](full-guide.md) (everything above "
+               "in one page, with images and formulas)",
+               "- [Raw export](source/guide-export.md) (the unprocessed "
+               "export the files are built from)", "",
                "## How to use this guide", ""]
     readme += shift_headings(trim(how_to), 1)
     readme += ["", "## Updating", "",
