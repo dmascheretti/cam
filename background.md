@@ -114,3 +114,12 @@ He started from a classroom chair: made in thousands to tens of thousands a year
 ## L3.1 Smart manufacturing
 
 - **Prof (4 Nov):** examples of AM parts that are hard to measure: a tooling insert with internal channels, a titanium lattice hip cup, Airbus brackets, a small turbine; **Camozzi**, an Italian company making large gantry AM machines; with colleagues in Germany his lab collected about 4 TB of process-camera data. The statistics part of the course follows (Prof. Grasso's module).
+
+## L3.2 Sensing and data mining
+
+- **Prof (9 Nov):** our eyes see 400–700 nm (violet to red); near-infrared runs from about 0.7 to 2 µm, then mid-infrared and beyond; we see green best, "probably because we needed to eat: grass". Neutron tomography exists but is rare in industry. Phone cameras now reach about 100 fps. "Has anybody welded? It makes a sound." The department's CMM sits in its own climate-controlled room in the lab.
+- **Prof (10 Nov):** AM monitoring videos from his lab: in powder-bed fusion a spot that stays hot later comes out defective; photos of every layer stacked into a pseudo-tomography; electron-beam melting looks like four beams but is one beam jumping at about 8 km/s; heat build-up in polymer extrusion. On Politecnico being "too theoretical": most of what is shown comes from research, and the labs are open to students once they have the grounding.
+
+## L3.3 SPC fundamentals
+
+- **Prof (10 Nov):** Shewhart's charts date from the 1920s, the time of the production line; the maths is a century old, but today we can compute it instantly and extend it to several characteristics, profiles, surfaces and volumes.
